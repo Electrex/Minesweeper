@@ -1,19 +1,19 @@
 package model;
 
-class Tile {
+public class Tile {
 
     //Possible tile states
-    static final int COVERED = 0;
-    static final int REVEALED = 1;
-    static final int FLAGGED = 2;
-    static final int QUESTION = 3;
+    public static final int COVERED = 0;
+    public static final int REVEALED = 1;
+    public static final int FLAGGED = 2;
+    public static final int QUESTION = 3;
     
     private int state;
     
     //Possible tile types
-    static final int BLANK = 0;
-    static final int NUMBER = 1;
-    static final int MINE = 2;
+    public static final int BLANK = 0;
+    public static final int NUMBER = 1;
+    public static final int MINE = 2;
 
     private int type;
     
@@ -55,6 +55,7 @@ class Tile {
         this.state = state;
     }
 
+    // For debugging
     @Override
     public String toString() {
         if (getState() == REVEALED) {

@@ -1,9 +1,9 @@
 package controller;
 
-public class HitMessage implements Message {
+public class FlagMessage implements Message {
     int row, col;
-    static final int HIT_EVENT = 0;
-    public HitMessage(int row, int col){
+    static final int HIT_EVENT = 1;
+    public FlagMessage(int row, int col){
         this.row = row;
         this.col = col;
     }

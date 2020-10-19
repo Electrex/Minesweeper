@@ -1,5 +1,6 @@
 package controller;
 
+import model.Tile;
 import view.MinesweeperView;
 import model.MinesweeperModel;
 
@@ -12,15 +13,16 @@ public class MinesweeperController {
     private MinesweeperView view; // Direct reference to view
     private MinesweeperModel model; // Direct reference to model
     private GameInfo gameInfo; // Direct reference to the state of the Game/Application
-
     private List<Valve> valves = new LinkedList<Valve>();
 
     public MinesweeperController(MinesweeperView view, MinesweeperModel model, BlockingQueue<Message> queue) {
         this.view = view;
         this.model = model;
         this.queue = queue;
+        this.view.repaintView(model);
         valves.add(new DoNewGameValve());
-        valves.add(new DoHitValve());
+        valves.add(new DoFlagValve());
+        valves.add(new DoRevealValve());
     }
 
     public void mainLoop() {
@@ -63,20 +65,47 @@ public class MinesweeperController {
             // otherwise it means that it is a NewGameMessage message
             // actions in Model
             // actions in View
-            view.repaintView();
+            model = new MinesweeperModel(9, 9, 10);
+            view.repaintView(model);
             return ValveResponse.EXECUTED;
         }
     }
 
-    private class DoHitValve implements Valve {
+    private class DoFlagValve implements Valve {
         @Override
         public ValveResponse execute(Message message) {
-            if (message.getClass() != HitMessage.class) {
+            if (message.getClass() != FlagMessage.class) {
                 return ValveResponse.MISS;
             }
-            System.out.println("Event code: " + message.getEvent().getFirst() +
-                    " @ Row: " + message.getEvent().getSecond().getFirst() +
-                    " @ Col: " + message.getEvent().getSecond().getSecond());
+//            System.out.println("Event code: " + message.getEvent().getFirst() +
+//                    " @ Row: " + message.getEvent().getSecond().getFirst() +
+//                    " @ Col: " + message.getEvent().getSecond().getSecond());
+            int row = message.getEvent().getSecond().getFirst();
+            int col = message.getEvent().getSecond().getSecond();
+            if (model.getGrid()[row][col].getState() != Tile.FLAGGED)
+                model.getGrid()[row][col].setState(Tile.FLAGGED);
+            else
+                model.getGrid()[row][col].setState(Tile.COVERED);
+            view.repaintView(model);
+            // otherwise message is of HitMessage type
+            // actions in Model and View
+            return ValveResponse.EXECUTED;
+        }
+    }
+
+    private class DoRevealValve implements Valve {
+        @Override
+        public ValveResponse execute(Message message) {
+            if (message.getClass() != RevealMessage.class) {
+                return ValveResponse.MISS;
+            }
+//            System.out.println("Event code: " + message.getEvent().getFirst() +
+//                    " @ Row: " + message.getEvent().getSecond().getFirst() +
+//                    " @ Col: " + message.getEvent().getSecond().getSecond());
+            int row = message.getEvent().getSecond().getFirst();
+            int col = message.getEvent().getSecond().getSecond();
+            model.recursiveReveal(row, col);
+            view.repaintView(model);
             // otherwise message is of HitMessage type
             // actions in Model and View
             return ValveResponse.EXECUTED;
