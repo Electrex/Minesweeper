@@ -62,9 +62,6 @@ public class MinesweeperController {
             if (message.getClass() != NewGameMessage.class) {
                 return ValveResponse.MISS;
             }
-            // otherwise it means that it is a NewGameMessage message
-            // actions in Model
-            // actions in View
             model = new MinesweeperModel(9, 9, 10);
             view.repaintView(model);
             return ValveResponse.EXECUTED;
@@ -77,9 +74,6 @@ public class MinesweeperController {
             if (message.getClass() != FlagMessage.class) {
                 return ValveResponse.MISS;
             }
-//            System.out.println("Event code: " + message.getEvent().getFirst() +
-//                    " @ Row: " + message.getEvent().getSecond().getFirst() +
-//                    " @ Col: " + message.getEvent().getSecond().getSecond());
             int row = message.getEvent().getSecond().getFirst();
             int col = message.getEvent().getSecond().getSecond();
             if (model.getGrid()[row][col].getState() != Tile.FLAGGED)
@@ -87,8 +81,6 @@ public class MinesweeperController {
             else
                 model.getGrid()[row][col].setState(Tile.COVERED);
             view.repaintView(model);
-            // otherwise message is of HitMessage type
-            // actions in Model and View
             return ValveResponse.EXECUTED;
         }
     }
@@ -106,8 +98,6 @@ public class MinesweeperController {
             int col = message.getEvent().getSecond().getSecond();
             model.recursiveReveal(row, col);
             view.repaintView(model);
-            // otherwise message is of HitMessage type
-            // actions in Model and View
             return ValveResponse.EXECUTED;
         }
     }

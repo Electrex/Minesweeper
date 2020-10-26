@@ -4,9 +4,9 @@ import java.util.Random;
 
 public class MinesweeperModel implements MSModel<Tile> {
 
-    private int WIDTH = 9;
-    private int HEIGHT = 9;
-    private int numMines = 10;
+    private int WIDTH;
+    private int HEIGHT;
+    private int numMines;
 
     private Tile[][] grid;
     public int numMinesLeft;
