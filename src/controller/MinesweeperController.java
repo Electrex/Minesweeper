@@ -8,7 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
-public class MinesweeperController {
+public class MinesweeperController implements Runnable {
     private BlockingQueue<Message> queue;
     private MinesweeperView view; // Direct reference to view
     private MinesweeperModel model; // Direct reference to model
@@ -25,7 +25,8 @@ public class MinesweeperController {
         valves.add(new DoRevealValve());
     }
 
-    public void mainLoop() {
+    @Override
+    public void run() {
         ValveResponse response = ValveResponse.EXECUTED;
         Message message = null;
         while (response != ValveResponse.FINISH) {

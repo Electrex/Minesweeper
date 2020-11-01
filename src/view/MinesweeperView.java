@@ -12,7 +12,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.concurrent.BlockingQueue;
 
-public class MinesweeperView extends JFrame {
+public class MinesweeperView {
     private JButton[][] Minefield;
     private final int ROWS = 12;
     private final int COLUMNS = 12;
@@ -42,6 +42,7 @@ public class MinesweeperView extends JFrame {
         Minefield = new JButton[ROWS][COLUMNS];
         frame.add(panel);
         frame.pack();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
 
@@ -80,10 +81,11 @@ public class MinesweeperView extends JFrame {
                 panel1.add(Minefield[r][c]);
             }
         }
-        panel1.repaint();
+        //panel1.repaint();
+        frame.repaint();
         //frame.add(panel);
         frame.pack();
-        frame.setVisible(true);
+//        frame.setVisible(true);
     }
 
     void hitButtonPressed(MouseEvent e, int r, int c){
@@ -93,5 +95,9 @@ public class MinesweeperView extends JFrame {
             queue.add(new FlagMessage(r, c));
 //        else if (SwingUtilities.isMiddleMouseButton(e))
 //            queue.add(new QuestionMessage(r, c));
+    }
+
+    public void dispose() {
+        frame.dispose();
     }
 }
