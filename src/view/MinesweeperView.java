@@ -16,7 +16,7 @@ public class MinesweeperView {
     private JButton[][] Minefield;
     private final int ROWS = 12;
     private final int COLUMNS = 12;
-    ImageIcon f = new ImageIcon("src\\minesweeper_images\\images\\bomb_flagged.gif");
+    ImageIcon f = new ImageIcon("src/minesweeper_images/images/bomb_flagged.gif");
     int buttonHeight = f.getIconHeight();
     int buttonWidth = f.getIconWidth();
     JFrame frame;
@@ -54,16 +54,16 @@ public class MinesweeperView {
                 try {
                     switch (grid[r][c].getState()) {
                         case Tile.COVERED:
-                            Minefield[r][c] = new JButton(new ImageIcon("src\\minesweeper_images\\images\\blank.gif"));
+                            Minefield[r][c] = new JButton(new ImageIcon("src/minesweeper_images/images/blank.gif"));
                             break;
                         case Tile.FLAGGED:
-                            Minefield[r][c] = new JButton(new ImageIcon("src\\minesweeper_images\\images\\bomb_flagged.gif"));
+                            Minefield[r][c] = new JButton(new ImageIcon("src/minesweeper_images/images/bomb_flagged.gif"));
                             break;
                         default:
                             switch (grid[r][c].getType()) {
-                                case Tile.BLANK -> Minefield[r][c] = new JButton(new ImageIcon("src\\minesweeper_images\\images\\num_0.gif"));
-                                case Tile.MINE -> Minefield[r][c] = new JButton(new ImageIcon("src\\minesweeper_images\\images\\bomb_death.gif"));
-                                case Tile.NUMBER -> Minefield[r][c] = new JButton(new ImageIcon("src\\minesweeper_images\\images\\num_" + grid[r][c].getNumSurroundingMines() + ".gif"));
+                                case Tile.BLANK : Minefield[r][c] = new JButton(new ImageIcon("src/minesweeper_images/images/num_0.gif"));
+                                case Tile.MINE : Minefield[r][c] = new JButton(new ImageIcon("src/minesweeper_images/images/bomb_death.gif"));
+                                case Tile.NUMBER : Minefield[r][c] = new JButton(new ImageIcon("src/minesweeper_images/images/num_" + grid[r][c].getNumSurroundingMines() + ".gif"));
                             }
                     }
                     Minefield[r][c].setPreferredSize(new Dimension(buttonWidth, buttonHeight));
