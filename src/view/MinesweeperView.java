@@ -61,9 +61,15 @@ public class MinesweeperView {
                             break;
                         default:
                             switch (grid[r][c].getType()) {
-                                case Tile.BLANK : Minefield[r][c] = new JButton(new ImageIcon("src/minesweeper_images/images/num_0.gif"));
-                                case Tile.MINE : Minefield[r][c] = new JButton(new ImageIcon("src/minesweeper_images/images/bomb_death.gif"));
-                                case Tile.NUMBER : Minefield[r][c] = new JButton(new ImageIcon("src/minesweeper_images/images/num_" + grid[r][c].getNumSurroundingMines() + ".gif"));
+                                case Tile.BLANK :
+                                    Minefield[r][c] = new JButton(new ImageIcon("src/minesweeper_images/images/num_0.gif"));
+                                    break;
+                                case Tile.MINE :
+                                    Minefield[r][c] = new JButton(new ImageIcon("src/minesweeper_images/images/bomb_death.gif"));
+                                    break;
+                                case Tile.NUMBER :
+                                    Minefield[r][c] = new JButton(new ImageIcon("src/minesweeper_images/images/num_" + grid[r][c].getNumSurroundingMines() + ".gif"));
+                                    break;
                             }
                     }
                     Minefield[r][c].setPreferredSize(new Dimension(buttonWidth, buttonHeight));
