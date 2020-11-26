@@ -16,9 +16,10 @@ public class MinesweeperMain {
         model = new MinesweeperModel(12, 12, 10);
         MinesweeperController controller = new MinesweeperController(view, model, queue);
         controller.run();
-//        new Thread(controller).start();
+        //new Thread(controller).start();
         view.dispose();
         queue.clear();
     }
+
 }
 

@@ -25,6 +25,10 @@ public class MinesweeperController implements Runnable {
         valves.add(new DoRevealValve());
     }
 
+    public GameInfo getGameInfo() {
+        return gameInfo;
+    }
+
     @Override
     public void run() {
         ValveResponse response = ValveResponse.EXECUTED;

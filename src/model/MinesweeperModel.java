@@ -239,4 +239,13 @@ public class MinesweeperModel implements MSModel<Tile> {
     public Tile[][] getGrid() {
         return grid;
     }
+
+    public int getNumMines() {
+        return numMines;
+    }
+
+    public int getNumMinesLeft() {
+        return numMinesLeft;
+    }
+
 }
