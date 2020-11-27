@@ -231,21 +231,12 @@ public class MinesweeperModel implements MSModel<Tile> {
     }
 
     @Override
-    public int getNumCols(){
-        return WIDTH;
-    }
+    public int getNumCols(){ return WIDTH; }
 
     @Override
-    public Tile[][] getGrid() {
-        return grid;
-    }
+    public Tile[][] getGrid() { return grid; }
 
     public int getNumMines() {
         return numMines;
     }
-
-    public int getNumMinesLeft() {
-        return numMinesLeft;
-    }
-
 }
