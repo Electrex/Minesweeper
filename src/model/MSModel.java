@@ -8,5 +8,5 @@ public interface MSModel<T> {
     boolean isInBounds(int row, int col);
     void initializeBoard();
     void recursiveReveal(int row, int col);
-    void endGame(boolean winLose);
+    void endGame();
 }

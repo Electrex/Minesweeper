@@ -25,8 +25,8 @@ public class MinesweeperModelTest {
 
     @Test
     public void isInBounds() {
-        assertEquals(true, testModel.isInBounds(9,9));
-        assertEquals(false, testModel.isInBounds(11,11));
+        assertTrue(testModel.isInBounds(9, 9));
+        assertFalse(testModel.isInBounds(11, 11));
     }
 
 

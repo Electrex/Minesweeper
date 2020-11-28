@@ -4,18 +4,22 @@ import java.util.Random;
 
 public class MinesweeperModel implements MSModel<Tile> {
 
-    private int WIDTH;
-    private int HEIGHT;
-    private int numMines;
+    private final int WIDTH;
+    private final int HEIGHT;
+    private final int numMines;
 
     private Tile[][] grid;
     public int numMinesLeft;
+    public int numMinesMarked;
+    private boolean gameOver;
 
     public MinesweeperModel(int gridWidth, int gridHeight, int numMines) {
         this.WIDTH = gridWidth;
         this.HEIGHT = gridHeight;
         this.numMines = numMines;
         numMinesLeft = numMines;
+        numMinesMarked = 0;
+        gameOver = false;
         initializeBoard();
     }
 
@@ -58,7 +62,7 @@ public class MinesweeperModel implements MSModel<Tile> {
             currentTile.setState(Tile.REVEALED);
         }
         if (currentTile.getType() == Tile.MINE){
-            endGame(false);
+            endGame();
         } else if (currentTile.getType() == Tile.BLANK){
             if (isInBounds(row - 1, col) && grid[row - 1][col].getState() != Tile.REVEALED && grid[row - 1][col].getType() != Tile.MINE && grid[row - 1][col].getState() != Tile.FLAGGED) recursiveReveal(row - 1, col);
             if (isInBounds(row - 1, col + 1) && grid[row - 1][col + 1].getState() != Tile.REVEALED && grid[row - 1][col + 1].getType() != Tile.MINE && grid[row - 1][col + 1].getState() != Tile.FLAGGED) recursiveReveal(row - 1, col + 1);
@@ -72,149 +76,17 @@ public class MinesweeperModel implements MSModel<Tile> {
     }
 
     @Override
-    public void endGame(boolean winLose){
-        if (winLose){
-            System.out.println("You win!");
-        } else {
-            System.out.println("You lose, try again!");
-        }
+    public void endGame(){
+        gameOver = true;
     }
 
     @Override
     public int getNumNeighboringMines(int row, int col) {
-        int count = 0;
-        if (row > 0 && row < getNumRows() - 1 && col > 0 && col < getNumCols() - 1){
-            if (grid[row - 1][col - 1].getType() == Tile.MINE) {
-                count++;
-            }
-            if (grid[row][col - 1].getType() == Tile.MINE) {
-                count++;
-            }
-            if (grid[row + 1][col - 1].getType() == Tile.MINE) {
-                count++;
-            }
-            if (grid[row + 1][col].getType() == Tile.MINE) {
-                count++;
-            }
-            if (grid[row + 1][col + 1].getType() == Tile.MINE) {
-                count++;
-            }
-            if (grid[row][col + 1].getType() == Tile.MINE) {
-                count++;
-            }
-            if (grid[row - 1][col + 1].getType() == Tile.MINE) {
-                count++;
-            }
-            if (grid[row - 1][col].getType() == Tile.MINE) {
-                count++;
-            }
-        } else {
-            if (row == 0 && col == 0){
-                if (grid[row][col + 1].getType() == Tile.MINE) {
-                    count++;
-                }
-                if (grid[row + 1][col + 1].getType() == Tile.MINE) {
-                    count++;
-                }
-                if (grid[row + 1][col].getType() == Tile.MINE) {
-                    count++;
-                }
-            } else if (row == getNumRows() - 1 && col == 0){
-                if (grid[row - 1][col].getType() == Tile.MINE) {
-                    count++;
-                }
-                if (grid[row - 1][col + 1].getType() == Tile.MINE) {
-                    count++;
-                }
-                if (grid[row][col + 1].getType() == Tile.MINE) {
-                    count++;
-                }
-            } else if (row == getNumRows() - 1 && col == getNumCols() - 1){
-                if (grid[row - 1][col].getType() == Tile.MINE) {
-                    count++;
-                }
-                if (grid[row - 1][col - 1].getType() == Tile.MINE) {
-                    count++;
-                }
-                if (grid[row][col - 1].getType() == Tile.MINE) {
-                    count++;
-                }
-            } else if (row == 0 && col == getNumCols() - 1){
-                if (grid[row][col - 1].getType() == Tile.MINE) {
-                    count++;
-                }
-                if (grid[row + 1][col - 1].getType() == Tile.MINE) {
-                    count++;
-                }
-                if (grid[row][col - 1].getType() == Tile.MINE) {
-                    count++;
-                }
-            } else {
-                if (row == 0){
-                    if (grid[row][col - 1].getType() == Tile.MINE) {
-                        count++;
-                    }
-                    if (grid[row][col + 1].getType() == Tile.MINE) {
-                        count++;
-                    }
-                    if (grid[row][col - 1].getType() == Tile.MINE) {
-                        count++;
-                    }
-                    if (grid[row + 1][col - 1].getType() == Tile.MINE) {
-                        count++;
-                    }
-                    if (grid[row + 1][col + 1].getType() == Tile.MINE) {
-                        count++;
-                    }
-                } else if (row == getNumRows() - 1){
-                    if (grid[row][col - 1].getType() == Tile.MINE) {
-                        count++;
-                    }
-                    if (grid[row][col + 1].getType() == Tile.MINE) {
-                        count++;
-                    }
-                    if (grid[row - 1][col].getType() == Tile.MINE) {
-                        count++;
-                    }
-                    if (grid[row - 1][col - 1].getType() == Tile.MINE) {
-                        count++;
-                    }
-                    if (grid[row - 1][col + 1].getType() == Tile.MINE) {
-                        count++;
-                    }
-                } else if (col == 0){
-                    if (grid[row - 1][col].getType() == Tile.MINE) {
-                        count++;
-                    }
-                    if (grid[row + 1][col].getType() == Tile.MINE) {
-                        count++;
-                    }
-                    if (grid[row][col + 1].getType() == Tile.MINE) {
-                        count++;
-                    }
-                    if (grid[row - 1][col + 1].getType() == Tile.MINE) {
-                        count++;
-                    }
-                    if (grid[row + 1][col + 1].getType() == Tile.MINE) {
-                        count++;
-                    }
-                } else {
-                    if (grid[row - 1][col].getType() == Tile.MINE) {
-                        count++;
-                    }
-                    if (grid[row][col - 1].getType() == Tile.MINE) {
-                        count++;
-                    }
-                    if (grid[row][col - 1].getType() == Tile.MINE) {
-                        count++;
-                    }
-                    if (grid[row - 1][col - 1].getType() == Tile.MINE) {
-                        count++;
-                    }
-                    if (grid[row + 1][col - 1].getType() == Tile.MINE) {
-                        count++;
-                    }
-                }
+        int count = 0, rowStart = Math.max(row - 1, 0), rowFinish = Math.min(row + 1, grid.length - 1), colStart = Math.max(col - 1, 0), colFinish = Math.min(col + 1, grid.length - 1);
+
+        for (int curRow = rowStart; curRow <= rowFinish; curRow++ ) {
+            for (int curCol = colStart; curCol <= colFinish; curCol++ ) {
+                if (grid[curRow][curCol].getType() == Tile.MINE) count++;
             }
         }
         return count;
@@ -222,7 +94,7 @@ public class MinesweeperModel implements MSModel<Tile> {
 
     @Override
     public boolean isInBounds(int row, int col) {
-        return row >= 0 && row <= grid.length - 1 && col >= 0 && col <= grid[0].length - 1;
+        return row >= 0 && row < grid.length && col >= 0 && col < grid[0].length;
     }
 
     @Override
@@ -238,5 +110,9 @@ public class MinesweeperModel implements MSModel<Tile> {
 
     public int getNumMines() {
         return numMines;
+    }
+
+    public boolean isGameOver(){
+        return gameOver;
     }
 }

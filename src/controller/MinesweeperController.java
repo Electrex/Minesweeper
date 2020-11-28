@@ -19,6 +19,7 @@ public class MinesweeperController implements Runnable {
         this.view = view;
         this.model = model;
         this.queue = queue;
+        this.gameInfo = new GameInfo();
         this.view.repaintView(model);
         valves.add(new DoNewGameValve());
         valves.add(new DoFlagValve());
@@ -34,6 +35,14 @@ public class MinesweeperController implements Runnable {
         ValveResponse response = ValveResponse.EXECUTED;
         Message message = null;
         while (response != ValveResponse.FINISH) {
+            if (gameInfo.getState() != GameInfo.GAME_IN_PROGRESS){
+                if ((gameInfo.getState() == GameInfo.GAME_WON)) {
+                    view.gameWon();
+                } else {
+                    view.gameOver();
+                }
+                break;
+            }
             try {
                 message = queue.take(); // <--- take next message from the queue
             } catch (InterruptedException e) {
@@ -81,10 +90,24 @@ public class MinesweeperController implements Runnable {
             }
             int row = message.getEvent().getSecond().getFirst();
             int col = message.getEvent().getSecond().getSecond();
-            if (model.getGrid()[row][col].getState() != Tile.FLAGGED)
+            if (model.getGrid()[row][col].getState() != Tile.FLAGGED) {
                 model.getGrid()[row][col].setState(Tile.FLAGGED);
-            else
+                model.numMinesMarked++;
+                if (model.getGrid()[row][col].getType() == Tile.MINE){
+                    model.numMinesLeft--;
+                }
+                if (model.numMinesMarked == model.getNumMines() && model.numMinesLeft == 0)
+                    gameInfo.setState(GameInfo.GAME_WON);
+            }
+            else {
                 model.getGrid()[row][col].setState(Tile.COVERED);
+                model.numMinesMarked++;
+                if (model.getGrid()[row][col].getType() == Tile.MINE){
+                    model.numMinesLeft++;
+                }
+                if (model.numMinesMarked == model.getNumMines() && model.numMinesLeft == 0)
+                    gameInfo.setState(GameInfo.GAME_WON);
+            }
             view.repaintView(model);
             return ValveResponse.EXECUTED;
         }
@@ -103,6 +126,8 @@ public class MinesweeperController implements Runnable {
             int col = message.getEvent().getSecond().getSecond();
             model.recursiveReveal(row, col);
             view.repaintView(model);
+            if (model.isGameOver())
+                gameInfo.setState(GameInfo.GAME_OVER);
             return ValveResponse.EXECUTED;
         }
     }

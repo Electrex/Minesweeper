@@ -77,7 +77,7 @@ public class MinesweeperView {
                     int finalC = c;
                     Minefield[r][c].addMouseListener(new MouseAdapter() {
                         @Override
-                        public void mouseClicked(MouseEvent e) {
+                        public void mousePressed(MouseEvent e) {
                             hitButtonPressed(e, finalR, finalC);
                         }
                     });
@@ -105,5 +105,13 @@ public class MinesweeperView {
 
     public void dispose() {
         frame.dispose();
+    }
+
+    public void gameOver() {
+        System.out.println("Game over");
+    }
+
+    public void gameWon() {
+        System.out.println("Game won");
     }
 }

@@ -7,7 +7,7 @@ public class GameInfo {
     private int state;
 
     public GameInfo(){
-        state = 0;
+        state = 2;
     }
 
     public void setState(int state){
