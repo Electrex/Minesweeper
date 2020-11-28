@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 public class MinesweeperModelTest {
 
     MinesweeperModel testModel = new MinesweeperModel(10,10,12);
+    Tile[][] t = new Tile[10][10];
 
     @Test
     public void getNumRows() {
@@ -24,10 +25,14 @@ public class MinesweeperModelTest {
     }
 
     @Test
+    public void getNumMinesLeft() {
+        assertEquals(12, testModel.getNumMinesLeft());
+    }
+
+    @Test
     public void isInBounds() {
         assertTrue(testModel.isInBounds(9, 9));
         assertFalse(testModel.isInBounds(11, 11));
     }
-
 
 }
