@@ -239,4 +239,8 @@ public class MinesweeperModel implements MSModel<Tile> {
     public int getNumMines() {
         return numMines;
     }
+
+    public int getNumMinesLeft() {
+        return numMinesLeft;
+    }
 }
