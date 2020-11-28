@@ -64,14 +64,14 @@ public class MinesweeperModel implements MSModel<Tile> {
         if (currentTile.getType() == Tile.MINE){
             endGame();
         } else if (currentTile.getType() == Tile.BLANK){
-            if (isInBounds(row - 1, col) && grid[row - 1][col].getState() != Tile.REVEALED && grid[row - 1][col].getType() != Tile.MINE && grid[row - 1][col].getState() != Tile.FLAGGED) recursiveReveal(row - 1, col);
-            if (isInBounds(row - 1, col + 1) && grid[row - 1][col + 1].getState() != Tile.REVEALED && grid[row - 1][col + 1].getType() != Tile.MINE && grid[row - 1][col + 1].getState() != Tile.FLAGGED) recursiveReveal(row - 1, col + 1);
-            if (isInBounds(row, col + 1) && grid[row][col + 1].getState() != Tile.REVEALED && grid[row][col + 1].getType() != Tile.MINE && grid[row][col + 1].getState() != Tile.FLAGGED) recursiveReveal(row, col + 1);
-            if (isInBounds(row + 1, col + 1) && grid[row + 1][col + 1].getState() != Tile.REVEALED && grid[row + 1][col + 1].getType() != Tile.MINE && grid[row + 1][col + 1].getState() != Tile.FLAGGED) recursiveReveal(row + 1, col + 1);
-            if (isInBounds(row + 1, col) && grid[row + 1][col].getState() != Tile.REVEALED && grid[row + 1][col].getType() != Tile.MINE && grid[row + 1][col].getState() != Tile.FLAGGED) recursiveReveal(row + 1, col);
-            if (isInBounds(row + 1, col - 1) && grid[row + 1][col - 1].getState() != Tile.REVEALED && grid[row + 1][col - 1].getType() != Tile.MINE && grid[row + 1][col - 1].getState() != Tile.FLAGGED) recursiveReveal(row + 1, col - 1);
-            if (isInBounds(row, col - 1) && grid[row][col - 1].getState() != Tile.REVEALED && grid[row][col - 1].getType() != Tile.MINE && grid[row][col - 1].getState() != Tile.FLAGGED) recursiveReveal(row, col - 1);
-            if (isInBounds(row - 1, col - 1) && grid[row - 1][col - 1].getState() != Tile.REVEALED && grid[row - 1][col - 1].getType() != Tile.MINE && grid[row - 1][col - 1].getState() != Tile.FLAGGED) recursiveReveal(row - 1, col - 1);
+            if (isInBounds(row - 1, col) && grid[row - 1][col].getState() != Tile.REVEALED && grid[row - 1][col].getType() != Tile.MINE && grid[row - 1][col].getState() != Tile.FLAGGED && grid[row - 1][col].getState() != Tile.QUESTION) recursiveReveal(row - 1, col);
+            if (isInBounds(row - 1, col + 1) && grid[row - 1][col + 1].getState() != Tile.REVEALED && grid[row - 1][col + 1].getType() != Tile.MINE && grid[row - 1][col + 1].getState() != Tile.FLAGGED && grid[row - 1][col + 1].getState() != Tile.QUESTION) recursiveReveal(row - 1, col + 1);
+            if (isInBounds(row, col + 1) && grid[row][col + 1].getState() != Tile.REVEALED && grid[row][col + 1].getType() != Tile.MINE && grid[row][col + 1].getState() != Tile.FLAGGED && grid[row][col + 1].getState() != Tile.QUESTION) recursiveReveal(row, col + 1);
+            if (isInBounds(row + 1, col + 1) && grid[row + 1][col + 1].getState() != Tile.REVEALED && grid[row + 1][col + 1].getType() != Tile.MINE && grid[row + 1][col + 1].getState() != Tile.FLAGGED && grid[row + 1][col + 1].getState() != Tile.QUESTION) recursiveReveal(row + 1, col + 1);
+            if (isInBounds(row + 1, col) && grid[row + 1][col].getState() != Tile.REVEALED && grid[row + 1][col].getType() != Tile.MINE && grid[row + 1][col].getState() != Tile.FLAGGED && grid[row + 1][col].getState() != Tile.QUESTION) recursiveReveal(row + 1, col);
+            if (isInBounds(row + 1, col - 1) && grid[row + 1][col - 1].getState() != Tile.REVEALED && grid[row + 1][col - 1].getType() != Tile.MINE && grid[row + 1][col - 1].getState() != Tile.FLAGGED && grid[row + 1][col - 1].getState() != Tile.QUESTION) recursiveReveal(row + 1, col - 1);
+            if (isInBounds(row, col - 1) && grid[row][col - 1].getState() != Tile.REVEALED && grid[row][col - 1].getType() != Tile.MINE && grid[row][col - 1].getState() != Tile.FLAGGED && grid[row][col - 1].getState() != Tile.QUESTION) recursiveReveal(row, col - 1);
+            if (isInBounds(row - 1, col - 1) && grid[row - 1][col - 1].getState() != Tile.REVEALED && grid[row - 1][col - 1].getType() != Tile.MINE && grid[row - 1][col - 1].getState() != Tile.FLAGGED && grid[row - 1][col - 1].getState() != Tile.QUESTION) recursiveReveal(row - 1, col - 1);
         }
     }
 
@@ -111,7 +111,7 @@ public class MinesweeperModel implements MSModel<Tile> {
     public int getNumMines() {
         return numMines;
     }
-    
+
     public boolean isGameOver() {
         return gameOver;
     }

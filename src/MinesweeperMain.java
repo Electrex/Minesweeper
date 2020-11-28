@@ -13,7 +13,7 @@ public class MinesweeperMain {
 
     public static void main(String[] args) {
         view = view.init(queue);
-        model = new MinesweeperModel(12, 12, 10);
+        model = new MinesweeperModel(12, 12, 15);
         MinesweeperController controller = new MinesweeperController(view, model, queue);
         controller.run();
         //new Thread(controller).start();

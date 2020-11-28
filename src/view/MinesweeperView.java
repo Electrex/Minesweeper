@@ -3,6 +3,7 @@ package view;
 
 import controller.FlagMessage;
 import controller.Message;
+import controller.QuestionMessage;
 import controller.RevealMessage;
 import model.MinesweeperModel;
 import model.Tile;
@@ -59,6 +60,9 @@ public class MinesweeperView {
                         case Tile.FLAGGED:
                             Minefield[r][c] = new JButton(new ImageIcon("src/minesweeper_images/images/bomb_flagged.gif"));
                             break;
+                        case Tile.QUESTION:
+                            Minefield[r][c] = new JButton(new ImageIcon("src/minesweeper_images/images/bomb_question.gif"));
+                            break;
                         default:
                             switch (grid[r][c].getType()) {
                                 case Tile.BLANK :
@@ -99,8 +103,8 @@ public class MinesweeperView {
             queue.add(new RevealMessage(r, c));
         else if (SwingUtilities.isRightMouseButton(e))
             queue.add(new FlagMessage(r, c));
-//        else if (SwingUtilities.isMiddleMouseButton(e))
-//            queue.add(new QuestionMessage(r, c));
+        else if (SwingUtilities.isMiddleMouseButton(e))
+            queue.add(new QuestionMessage(r, c));
     }
 
     public void dispose() {

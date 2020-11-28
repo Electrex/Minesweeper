@@ -23,6 +23,7 @@ public class MinesweeperController implements Runnable {
         this.view.repaintView(model);
         valves.add(new DoNewGameValve());
         valves.add(new DoFlagValve());
+        valves.add(new DoQuestionValve());
         valves.add(new DoRevealValve());
     }
 
@@ -96,8 +97,6 @@ public class MinesweeperController implements Runnable {
                 if (model.getGrid()[row][col].getType() == Tile.MINE){
                     model.numMinesLeft--;
                 }
-                if (model.numMinesMarked == model.getNumMines() && model.numMinesLeft == 0)
-                    gameInfo.setState(GameInfo.GAME_WON);
             }
             else {
                 model.getGrid()[row][col].setState(Tile.COVERED);
@@ -105,8 +104,27 @@ public class MinesweeperController implements Runnable {
                 if (model.getGrid()[row][col].getType() == Tile.MINE){
                     model.numMinesLeft++;
                 }
-                if (model.numMinesMarked == model.getNumMines() && model.numMinesLeft == 0)
-                    gameInfo.setState(GameInfo.GAME_WON);
+            }
+            if (model.numMinesMarked == model.getNumMines() && model.numMinesLeft == 0)
+                gameInfo.setState(GameInfo.GAME_WON);
+            view.repaintView(model);
+            return ValveResponse.EXECUTED;
+        }
+    }
+
+    private class DoQuestionValve implements Valve {
+        @Override
+        public ValveResponse execute(Message message) {
+            if (message.getClass() != QuestionMessage.class) {
+                return ValveResponse.MISS;
+            }
+            int row = message.getEvent().getSecond().getFirst();
+            int col = message.getEvent().getSecond().getSecond();
+            if (model.getGrid()[row][col].getState() != Tile.QUESTION) {
+                model.getGrid()[row][col].setState(Tile.QUESTION);
+            }
+            else {
+                model.getGrid()[row][col].setState(Tile.COVERED);
             }
             view.repaintView(model);
             return ValveResponse.EXECUTED;
