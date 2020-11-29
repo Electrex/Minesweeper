@@ -7,13 +7,12 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class MinesweeperMain {
-    private static BlockingQueue<Message> queue = new LinkedBlockingQueue<>();
-    private static MinesweeperView view;
-    private static MinesweeperModel model;
+    private static final BlockingQueue<Message> queue = new LinkedBlockingQueue<>();
+    final static int WIDTH = 15, HEIGHT = 15, NUM_MINES = 20;
 
     public static void main(String[] args) {
-        view = view.init(queue);
-        model = new MinesweeperModel(12, 12, 15);
+        MinesweeperModel model = new MinesweeperModel(WIDTH, HEIGHT, NUM_MINES);
+        MinesweeperView view = MinesweeperView.init(queue, WIDTH, HEIGHT);
         MinesweeperController controller = new MinesweeperController(view, model, queue);
         controller.run();
         //new Thread(controller).start();

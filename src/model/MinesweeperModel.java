@@ -115,6 +115,7 @@ public class MinesweeperModel implements MSModel<Tile> {
     public boolean isGameOver() {
         return gameOver;
     }
+
     public int getNumMinesLeft() {
         return numMinesLeft;
     }

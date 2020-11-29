@@ -14,23 +14,25 @@ import java.awt.event.MouseEvent;
 import java.util.concurrent.BlockingQueue;
 
 public class MinesweeperView {
-    private JButton[][] Minefield;
-    private final int ROWS = 12;
-    private final int COLUMNS = 12;
+    private final JButton[][] Minefield;
+    private final int ROWS;
+    private final int COLUMNS;
     ImageIcon f = new ImageIcon("src/minesweeper_images/images/bomb_flagged.gif");
     int buttonHeight = f.getIconHeight();
     int buttonWidth = f.getIconWidth();
     JFrame frame;
     JPanel panel1;
     JPanel panel;
-    private BlockingQueue<Message> queue;
+    private final BlockingQueue<Message> queue;
 
-    public static MinesweeperView init(BlockingQueue<Message> queue) {
-        return new MinesweeperView(queue);
+    public static MinesweeperView init(BlockingQueue<Message> queue, int width, int height) {
+        return new MinesweeperView(queue, width, height);
     }
 
-    private MinesweeperView(BlockingQueue<Message> queue){
+    private MinesweeperView(BlockingQueue<Message> queue, int width, int height){
         this.queue = queue;
+        this.ROWS = height;
+        this.COLUMNS = width;
         frame = new JFrame("Minesweeper");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         panel1 = new JPanel();
