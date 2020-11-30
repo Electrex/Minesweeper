@@ -93,10 +93,10 @@ public class MinesweeperModel implements MSModel<Tile> {
 
     @Override
     public int getNumNeighboringMines(int row, int col) {
-        int count = 0, rowStart = Math.max(row - 1, 0), rowFinish = Math.min(row + 1, grid.length - 1), colStart = Math.max(col - 1, 0), colFinish = Math.min(col + 1, grid.length - 1);
+        int count = 0, rowStart = Math.max(row - 1, 0), rowFinish = Math.min(row + 1, grid.length - 1), colStart = Math.max(col - 1, 0), colFinish = Math.min(col + 1, grid[0].length - 1);
 
-        for (int curRow = rowStart; curRow <= rowFinish; curRow++ ) {
-            for (int curCol = colStart; curCol <= colFinish; curCol++ ) {
+        for (int curRow = rowStart; curRow <= rowFinish; curRow++) {
+            for (int curCol = colStart; curCol <= colFinish; curCol++) {
                 if (grid[curRow][curCol].getType() == Tile.MINE) count++;
             }
         }

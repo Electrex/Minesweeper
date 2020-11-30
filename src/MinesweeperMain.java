@@ -8,7 +8,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class MinesweeperMain {
     private static final BlockingQueue<Message> queue = new LinkedBlockingQueue<>();
-    final static int WIDTH = 15, HEIGHT = 15, NUM_MINES = 20;
+    final static int WIDTH = 30, HEIGHT = 15, NUM_MINES = 40;
 
     public static void main(String[] args) {
         MinesweeperModel model = new MinesweeperModel(WIDTH, HEIGHT, NUM_MINES);
