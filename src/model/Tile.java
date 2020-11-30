@@ -15,13 +15,13 @@ public class Tile {
     public static final int NUMBER = 1;
     public static final int MINE = 2;
 
-    private int type;
+    private final int type;
     
     //Number of mines surrounding the tile
-    private int numMinesSurrounding;
+    private final int numMinesSurrounding;
     
-    private int row;
-    private int col;
+    private final int row;
+    private final int col;
     
     public Tile(int type, int row, int col) {
         this.type = type;

@@ -1,16 +1,14 @@
 package view;
 
 
-import controller.FlagMessage;
-import controller.Message;
-import controller.QuestionMessage;
-import controller.RevealMessage;
+import controller.*;
 import model.MinesweeperModel;
 import model.Tile;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.concurrent.BlockingQueue;
 
 public class MinesweeperView {
@@ -18,11 +16,15 @@ public class MinesweeperView {
     private final int ROWS;
     private final int COLUMNS;
     ImageIcon f = new ImageIcon("src/minesweeper_images/images/bomb_flagged.gif");
+    ImageIcon s = new ImageIcon("src/minesweeper_images/images/face_smile.gif");
     int buttonHeight = f.getIconHeight();
     int buttonWidth = f.getIconWidth();
     JFrame frame;
     JPanel panel1;
+    JPanel panel2;
+    JPanel container;
     JPanel panel;
+    JButton face;
     private final BlockingQueue<Message> queue;
 
     public static MinesweeperView init(BlockingQueue<Message> queue, int width, int height) {
@@ -33,14 +35,22 @@ public class MinesweeperView {
         this.queue = queue;
         this.ROWS = height;
         this.COLUMNS = width;
+        face = new JButton(s);
+        face.setPreferredSize(new Dimension(s.getIconWidth(), s.getIconHeight()));
         frame = new JFrame("Minesweeper");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         panel1 = new JPanel();
+        panel2 = new JPanel(new FlowLayout());
+        panel2.add(face);
+        panel2.setBackground(new Color(179, 179, 179));
+        container = new JPanel(new BorderLayout());
         panel1.setSize(500, 500);
         panel1.setLayout(new GridLayout(ROWS, COLUMNS));
         panel = new JPanel();
         panel.setLayout(new GridBagLayout());
-        panel.add(panel1);
+        container.add(panel2, BorderLayout.NORTH);
+        container.add(panel1, BorderLayout.CENTER);
+        panel.add(container);
 
         Minefield = new JButton[ROWS][COLUMNS];
         frame.add(panel);
@@ -84,7 +94,12 @@ public class MinesweeperView {
                     Minefield[r][c].addMouseListener(new MouseAdapter() {
                         @Override
                         public void mousePressed(MouseEvent e) {
-                            hitButtonPressed(e, finalR, finalC);
+                            hitButtonPressed(e);
+                        }
+
+                        @Override
+                        public void mouseReleased(MouseEvent e) {
+                            hitButtonReleased(e, finalR, finalC, grid);
                         }
                     });
                 } catch (Exception e){
@@ -100,9 +115,21 @@ public class MinesweeperView {
 //        frame.setVisible(true);
     }
 
-    void hitButtonPressed(MouseEvent e, int r, int c){
+    void hitButtonPressed(MouseEvent e){
         if (SwingUtilities.isLeftMouseButton(e))
+            face.setIcon(new ImageIcon("src/minesweeper_images/images/face_ooh.gif"));
+    }
+
+    void hitButtonReleased(MouseEvent e, int r, int c, Tile[][] grid){
+        if (SwingUtilities.isLeftMouseButton(e)){
             queue.add(new RevealMessage(r, c));
+            if (grid[r][c].getType() == Tile.MINE){
+                Minefield[r][c].setIcon(new ImageIcon("src/minesweeper_images/images/bomb_death.gif"));
+                face.setIcon(new ImageIcon("src/minesweeper_images/images/face_dead.gif"));
+            } else {
+                face.setIcon(s);
+            }
+        }
         else if (SwingUtilities.isRightMouseButton(e))
             queue.add(new FlagMessage(r, c));
         else if (SwingUtilities.isMiddleMouseButton(e))
@@ -114,10 +141,21 @@ public class MinesweeperView {
     }
 
     public void gameOver() {
-        System.out.println("Game over");
+        for(JButton[] b : Minefield){
+            for (JButton j: b){
+                //j.removeMouseListener(j.getMouseListeners()[0]);
+                j.removeMouseListener(j.getMouseListeners()[1]);
+            }
+        }
     }
 
     public void gameWon() {
-        System.out.println("Game won");
+        face.setIcon(new ImageIcon("src/minesweeper_images/images/face_win.gif"));
+        for(JButton[] b : Minefield){
+            for (JButton j: b){
+                //j.removeMouseListener(j.getMouseListeners()[0]);
+                j.removeMouseListener(j.getMouseListeners()[1]);
+            }
+        }
     }
 }

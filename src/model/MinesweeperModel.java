@@ -81,6 +81,17 @@ public class MinesweeperModel implements MSModel<Tile> {
     }
 
     @Override
+    public void revealAllMines() {
+        for (Tile[] tiles : grid) {
+            for (Tile t : tiles) {
+                if (t.getType() == Tile.MINE) {
+                    t.setState(Tile.REVEALED);
+                }
+            }
+        }
+    }
+
+    @Override
     public int getNumNeighboringMines(int row, int col) {
         int count = 0, rowStart = Math.max(row - 1, 0), rowFinish = Math.min(row + 1, grid.length - 1), colStart = Math.max(col - 1, 0), colFinish = Math.min(col + 1, grid.length - 1);
 

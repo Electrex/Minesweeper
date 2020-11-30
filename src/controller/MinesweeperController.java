@@ -25,11 +25,10 @@ public class MinesweeperController implements Runnable {
         valves.add(new DoFlagValve());
         valves.add(new DoQuestionValve());
         valves.add(new DoRevealValve());
+//        valves.add(new GameOverValve());
+//        valves.add(new GameWonValve());
     }
 
-    public GameInfo getGameInfo() {
-        return gameInfo;
-    }
 
     @Override
     public void run() {
@@ -40,9 +39,10 @@ public class MinesweeperController implements Runnable {
                 if ((gameInfo.getState() == GameInfo.GAME_WON)) {
                     view.gameWon();
                 } else {
+                    model.revealAllMines();
+                    view.repaintView(model);
                     view.gameOver();
                 }
-                break;
             }
             try {
                 message = queue.take(); // <--- take next message from the queue
@@ -59,10 +59,7 @@ public class MinesweeperController implements Runnable {
             }
         }
     }
-
-    private void updateGameInfo() {
-        gameInfo.setState(GameInfo.GAME_IN_PROGRESS);
-    }
+    
 
     private interface Valve {
         /**
@@ -70,6 +67,32 @@ public class MinesweeperController implements Runnable {
          */
         ValveResponse execute(Message message);
     }
+
+//    private class GameOverValve implements Valve {
+//        @Override
+//        public ValveResponse execute(Message message) {
+//            if (message.getClass() != GameOverMessage.class) {
+//                return ValveResponse.MISS;
+//            }
+//            int row = message.getEvent().getSecond().getFirst();
+//            int col = message.getEvent().getSecond().getSecond();
+//            model.revealAllMines(row, col);
+//            view.repaintView(model);
+//            view.gameOver();
+//            return ValveResponse.EXECUTED;
+//        }
+//    }
+
+//    private class GameWonValve implements Valve {
+//        @Override
+//        public ValveResponse execute(Message message) {
+//            if (message.getClass() != GameWonMessage.class) {
+//                return ValveResponse.MISS;
+//            }
+//            view.gameWon();
+//            return ValveResponse.EXECUTED;
+//        }
+//    }
 
     private class DoNewGameValve implements Valve {
         @Override
@@ -144,8 +167,11 @@ public class MinesweeperController implements Runnable {
             int col = message.getEvent().getSecond().getSecond();
             model.recursiveReveal(row, col);
             view.repaintView(model);
-            if (model.isGameOver())
+            if (model.isGameOver()){
                 gameInfo.setState(GameInfo.GAME_OVER);
+                gameInfo.setRow(row);
+                gameInfo.setCol(col);
+            }
             return ValveResponse.EXECUTED;
         }
     }

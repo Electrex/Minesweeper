@@ -9,4 +9,5 @@ public interface MSModel<T> {
     void initializeBoard();
     void recursiveReveal(int row, int col);
     void endGame();
+    void revealAllMines();
 }
