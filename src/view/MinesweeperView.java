@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.concurrent.BlockingQueue;
 
 public class MinesweeperView {
@@ -37,6 +36,13 @@ public class MinesweeperView {
         this.COLUMNS = width;
         face = new JButton(s);
         face.setPreferredSize(new Dimension(s.getIconWidth(), s.getIconHeight()));
+        face.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                face.setIcon(s);
+                queue.add(new NewGameMessage());
+            }
+        });
         frame = new JFrame("Minesweeper");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         panel1 = new JPanel();

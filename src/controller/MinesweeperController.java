@@ -25,6 +25,7 @@ public class MinesweeperController implements Runnable {
         valves.add(new DoFlagValve());
         valves.add(new DoQuestionValve());
         valves.add(new DoRevealValve());
+        valves.add(new DoNewGameValve());
 //        valves.add(new GameOverValve());
 //        valves.add(new GameWonValve());
     }
@@ -59,7 +60,7 @@ public class MinesweeperController implements Runnable {
             }
         }
     }
-    
+
 
     private interface Valve {
         /**
@@ -100,7 +101,9 @@ public class MinesweeperController implements Runnable {
             if (message.getClass() != NewGameMessage.class) {
                 return ValveResponse.MISS;
             }
-            model = new MinesweeperModel(9, 9, 10);
+            queue.clear();
+            gameInfo.setState(GameInfo.GAME_IN_PROGRESS);
+            model = new MinesweeperModel(model.getGrid()[0].length, model.getGrid().length, model.getNumMines());
             view.repaintView(model);
             return ValveResponse.EXECUTED;
         }

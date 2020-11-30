@@ -13,3 +13,4 @@ public class QuestionMessage implements Message {
         return new Pair<>(HIT_EVENT, new Pair<>(row, col));
     }
 }
+
