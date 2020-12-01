@@ -103,7 +103,7 @@ public class MinesweeperController implements Runnable {
             }
             queue.clear();
             gameInfo.setState(GameInfo.GAME_IN_PROGRESS);
-            model = new MinesweeperModel(model.getGrid()[0].length, model.getGrid().length, model.getNumMines());
+            model = new MinesweeperModel(new int[]{model.getGrid()[0].length, model.getGrid().length, model.getNumMines()});
             view.repaintView(model);
             return ValveResponse.EXECUTED;
         }

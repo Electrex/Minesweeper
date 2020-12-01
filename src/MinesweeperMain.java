@@ -8,14 +8,16 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class MinesweeperMain {
     private static final BlockingQueue<Message> queue = new LinkedBlockingQueue<>();
-    final static int WIDTH = 30, HEIGHT = 15, NUM_MINES = 40;
+    static int[] beginner = new int[]{9, 9, 10};
+    static int[] intermediate = new int[]{16, 16, 40};
+    static int[] expert = new int[]{30, 16, 99};
 
     public static void main(String[] args) {
-        MinesweeperModel model = new MinesweeperModel(WIDTH, HEIGHT, NUM_MINES);
-        MinesweeperView view = MinesweeperView.init(queue, WIDTH, HEIGHT);
+        MinesweeperModel model = new MinesweeperModel(expert);
+        MinesweeperView view = MinesweeperView.init(queue, new int[]{expert[0], expert[1]});
         MinesweeperController controller = new MinesweeperController(view, model, queue);
         controller.run();
-        //new Thread(controller).start();
+        new Thread(controller).start();
         view.dispose();
         queue.clear();
     }

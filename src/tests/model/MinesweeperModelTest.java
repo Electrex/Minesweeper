@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 public class MinesweeperModelTest {
 
-    MinesweeperModel testModel = new MinesweeperModel(10,10,12);
+    MinesweeperModel testModel = new MinesweeperModel(new int[]{10,10,12});
     Tile[][] t = new Tile[10][10];
 
     @Test

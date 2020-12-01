@@ -26,8 +26,8 @@ public class MinesweeperView {
     JButton face;
     private final BlockingQueue<Message> queue;
 
-    public static MinesweeperView init(BlockingQueue<Message> queue, int width, int height) {
-        return new MinesweeperView(queue, width, height);
+    public static MinesweeperView init(BlockingQueue<Message> queue, int[] args) {
+        return new MinesweeperView(queue, args[0], args[1]);
     }
 
     private MinesweeperView(BlockingQueue<Message> queue, int width, int height){

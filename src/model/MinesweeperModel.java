@@ -13,10 +13,10 @@ public class MinesweeperModel implements MSModel<Tile> {
     public int numMinesMarked;
     private boolean gameOver;
 
-    public MinesweeperModel(int gridWidth, int gridHeight, int numMines) {
-        this.WIDTH = gridWidth;
-        this.HEIGHT = gridHeight;
-        this.numMines = numMines;
+    public MinesweeperModel(int[] args) {
+        this.WIDTH = args[0];
+        this.HEIGHT = args[1];
+        this.numMines = args[2];
         numMinesLeft = numMines;
         numMinesMarked = 0;
         gameOver = false;
