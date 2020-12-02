@@ -25,6 +25,7 @@ public class MinesweeperView {
     JPanel panel;
     JButton face;
     private final BlockingQueue<Message> queue;
+    private int numberOfMoves;
 
     public static MinesweeperView init(BlockingQueue<Message> queue, int[] args) {
         return new MinesweeperView(queue, args[0], args[1]);
@@ -34,6 +35,7 @@ public class MinesweeperView {
         this.queue = queue;
         this.ROWS = height;
         this.COLUMNS = width;
+        numberOfMoves = 0;
         face = new JButton(s);
         face.setPreferredSize(new Dimension(s.getIconWidth(), s.getIconHeight()));
         face.addMouseListener(new MouseAdapter() {
@@ -114,11 +116,8 @@ public class MinesweeperView {
                 panel1.add(Minefield[r][c]);
             }
         }
-        //panel1.repaint();
         frame.repaint();
-        //frame.add(panel);
         frame.pack();
-//        frame.setVisible(true);
     }
 
     void hitButtonPressed(MouseEvent e){
@@ -127,19 +126,31 @@ public class MinesweeperView {
     }
 
     void hitButtonReleased(MouseEvent e, int r, int c, Tile[][] grid){
-        if (SwingUtilities.isLeftMouseButton(e)){
-            queue.add(new RevealMessage(r, c));
-            if (grid[r][c].getType() == Tile.MINE){
-                Minefield[r][c].setIcon(new ImageIcon("src/minesweeper_images/images/bomb_death.gif"));
-                face.setIcon(new ImageIcon("src/minesweeper_images/images/face_dead.gif"));
-            } else {
-                face.setIcon(s);
+        if (grid[r][c].getState() != Tile.REVEALED){
+            if (SwingUtilities.isLeftMouseButton(e)){
+                numberOfMoves++;
+                queue.add(new RevealMessage(r, c));
+                if (grid[r][c].getType() == Tile.MINE){
+                    Minefield[r][c].setIcon(new ImageIcon("src/minesweeper_images/images/bomb_death.gif"));
+                    if (numberOfMoves > 1)
+                        face.setIcon(new ImageIcon("src/minesweeper_images/images/face_dead.gif"));
+                    else {
+                        face.setIcon(s);
+                    }
+                } else {
+                    face.setIcon(s);
+                }
             }
+            else if (SwingUtilities.isRightMouseButton(e))
+                queue.add(new FlagMessage(r, c));
+            else if (SwingUtilities.isMiddleMouseButton(e))
+                queue.add(new QuestionMessage(r, c));
         }
-        else if (SwingUtilities.isRightMouseButton(e))
-            queue.add(new FlagMessage(r, c));
-        else if (SwingUtilities.isMiddleMouseButton(e))
-            queue.add(new QuestionMessage(r, c));
+    }
+
+    public void reset(){
+        numberOfMoves = 0;
+        face.setIcon(s);
     }
 
     public void dispose() {

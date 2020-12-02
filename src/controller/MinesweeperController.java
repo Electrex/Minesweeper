@@ -102,6 +102,7 @@ public class MinesweeperController implements Runnable {
                 return ValveResponse.MISS;
             }
             queue.clear();
+            view.reset();
             gameInfo.setState(GameInfo.GAME_IN_PROGRESS);
             model = new MinesweeperModel(new int[]{model.getGrid()[0].length, model.getGrid().length, model.getNumMines()});
             view.repaintView(model);
@@ -115,8 +116,8 @@ public class MinesweeperController implements Runnable {
             if (message.getClass() != FlagMessage.class) {
                 return ValveResponse.MISS;
             }
-            int row = message.getEvent().getSecond().getFirst();
-            int col = message.getEvent().getSecond().getSecond();
+            int row = message.getEvent().getFirst();
+            int col = message.getEvent().getSecond();
             if (model.getGrid()[row][col].getState() != Tile.FLAGGED) {
                 model.getGrid()[row][col].setState(Tile.FLAGGED);
                 model.numMinesMarked++;
@@ -144,8 +145,8 @@ public class MinesweeperController implements Runnable {
             if (message.getClass() != QuestionMessage.class) {
                 return ValveResponse.MISS;
             }
-            int row = message.getEvent().getSecond().getFirst();
-            int col = message.getEvent().getSecond().getSecond();
+            int row = message.getEvent().getFirst();
+            int col = message.getEvent().getSecond();
             if (model.getGrid()[row][col].getState() != Tile.QUESTION) {
                 model.getGrid()[row][col].setState(Tile.QUESTION);
             }
@@ -166,8 +167,8 @@ public class MinesweeperController implements Runnable {
 //            System.out.println("Event code: " + message.getEvent().getFirst() +
 //                    " @ Row: " + message.getEvent().getSecond().getFirst() +
 //                    " @ Col: " + message.getEvent().getSecond().getSecond());
-            int row = message.getEvent().getSecond().getFirst();
-            int col = message.getEvent().getSecond().getSecond();
+            int row = message.getEvent().getFirst();
+            int col = message.getEvent().getSecond();
             model.recursiveReveal(row, col);
             view.repaintView(model);
             if (model.isGameOver()){

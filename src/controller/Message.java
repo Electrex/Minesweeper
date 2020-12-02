@@ -7,6 +7,6 @@ import java.io.Serializable;
  * Represents message (event) sent from View to Model
  */
 public interface Message extends Serializable {
-    Pair<Integer, Pair<Integer, Integer>> getEvent();
+    Pair<Integer, Integer> getEvent();
 }
 

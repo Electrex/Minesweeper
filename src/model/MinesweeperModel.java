@@ -12,6 +12,7 @@ public class MinesweeperModel implements MSModel<Tile> {
     public int numMinesLeft;
     public int numMinesMarked;
     private boolean gameOver;
+    private int numberOfMoves;
 
     public MinesweeperModel(int[] args) {
         this.WIDTH = args[0];
@@ -20,6 +21,7 @@ public class MinesweeperModel implements MSModel<Tile> {
         numMinesLeft = numMines;
         numMinesMarked = 0;
         gameOver = false;
+        numberOfMoves = 0;
         initializeBoard();
     }
 
@@ -56,13 +58,50 @@ public class MinesweeperModel implements MSModel<Tile> {
     }
 
     @Override
+    public void initializeBoard(int r, int c) {
+
+        grid = new Tile[HEIGHT][WIDTH];
+
+        for (int row = 0; row < grid.length; row++) {
+            for (int col = 0; col < grid[0].length; col++) {
+                grid[row][col] = new Tile(Tile.BLANK, row, col);
+            }
+        }
+
+        Random random = new Random();
+        for (int i = 0; i < numMines; i++) {
+            int row = random.nextInt(HEIGHT);
+            int col = random.nextInt(WIDTH);
+            if ((row == r && col == c) || grid[row][col].getType() == Tile.MINE || grid[row][col].getType() == Tile.NUMBER) {
+                i--;
+            } else {
+                grid[row][col] = new Tile(Tile.MINE, row, col);
+            }
+        }
+
+        for (int row = 0; row < grid.length; row++) {
+            for (int col = 0; col < grid[0].length; col++) {
+                if (getNumNeighboringMines(row, col) > 0 && grid[row][col].getType() != Tile.MINE) {
+                    Tile tile = new Tile(Tile.NUMBER, getNumNeighboringMines(row, col), row, col);
+                    grid[row][col] = tile;
+                }
+            }
+        }
+    }
+
+    @Override
     public void recursiveReveal(int row, int col){
+        numberOfMoves++;
         Tile currentTile = grid[row][col];
         if (currentTile.getState() != Tile.REVEALED){
             currentTile.setState(Tile.REVEALED);
         }
         if (currentTile.getType() == Tile.MINE){
-            endGame();
+            if(numberOfMoves == 1){
+                initializeBoard(row, col);
+                recursiveReveal(row, col);
+            } else
+                endGame();
         } else if (currentTile.getType() == Tile.BLANK){
             if (isInBounds(row - 1, col) && grid[row - 1][col].getState() != Tile.REVEALED && grid[row - 1][col].getType() != Tile.MINE && grid[row - 1][col].getState() != Tile.FLAGGED && grid[row - 1][col].getState() != Tile.QUESTION) recursiveReveal(row - 1, col);
             if (isInBounds(row - 1, col + 1) && grid[row - 1][col + 1].getState() != Tile.REVEALED && grid[row - 1][col + 1].getType() != Tile.MINE && grid[row - 1][col + 1].getState() != Tile.FLAGGED && grid[row - 1][col + 1].getState() != Tile.QUESTION) recursiveReveal(row - 1, col + 1);
