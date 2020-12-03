@@ -15,7 +15,7 @@ public class Tile {
     public static final int NUMBER = 1;
     public static final int MINE = 2;
 
-    private final int type;
+    private int type;
     
     //Number of mines surrounding the tile
     private final int numMinesSurrounding;
@@ -71,5 +71,5 @@ public class Tile {
         // Default placeholder return statement
         return "X";
     }
-    
+
 }

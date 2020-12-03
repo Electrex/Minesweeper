@@ -1,10 +1,9 @@
 package controller;
 
-public class NewGameMessage implements Message {
-    int row, col;
+public class NewGameMessage extends BaseMessage {
 
-    @Override
-    public Pair<Integer, Integer> getEvent() {
-        return new Pair<>(row, col);
+    public NewGameMessage(){
+        super();
     }
+
 }

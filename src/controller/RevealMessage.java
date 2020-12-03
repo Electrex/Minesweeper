@@ -1,14 +1,9 @@
 package controller;
 
-public class RevealMessage implements Message {
-    int row, col;
+public class RevealMessage extends BaseMessage {
+
     public RevealMessage(int row, int col){
-        this.row = row;
-        this.col = col;
+        super(row, col);
     }
 
-    @Override
-    public Pair<Integer, Integer> getEvent() {
-        return new Pair<>(row, col);
-    }
 }

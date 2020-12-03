@@ -1,14 +1,9 @@
 package controller;
 
-public class FlagMessage implements Message {
-    int row, col;
+public class FlagMessage extends BaseMessage {
+
     public FlagMessage(int row, int col){
-        this.row = row;
-        this.col = col;
+        super(row, col);
     }
 
-    @Override
-    public Pair<Integer, Integer> getEvent() {
-        return new Pair<>(row, col);
-    }
 }

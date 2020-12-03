@@ -2,7 +2,7 @@ package model;
 
 import java.util.Random;
 
-public class MinesweeperModel implements MSModel<Tile> {
+public class MinesweeperModel implements MSModel<Tile>{
 
     private final int WIDTH;
     private final int HEIGHT;
@@ -33,6 +33,7 @@ public class MinesweeperModel implements MSModel<Tile> {
         for (int row = 0; row < grid.length; row++) {
             for (int col = 0; col < grid[0].length; col++) {
                 grid[row][col] = new Tile(Tile.BLANK, row, col);
+
             }
         }
 
@@ -169,4 +170,5 @@ public class MinesweeperModel implements MSModel<Tile> {
     public int getNumMinesLeft() {
         return numMinesLeft;
     }
+
 }
