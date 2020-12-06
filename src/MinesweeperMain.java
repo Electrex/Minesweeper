@@ -19,8 +19,8 @@ public class MinesweeperMain {
 
     public static void main(String[] args) {
         //Beginner Mode
-        MinesweeperModel model = new MinesweeperModel(beginner);
-        MinesweeperView view = MinesweeperView.init(queue, new int[]{beginner[0], beginner[1]});
+        MinesweeperModel model = new MinesweeperModel(intermediate);
+        MinesweeperView view = MinesweeperView.init(queue, new int[]{intermediate[0], intermediate[1]});
 
         //Intermediate Mode
         //MinesweeperModel model = new MinesweeperModel(intermediate);

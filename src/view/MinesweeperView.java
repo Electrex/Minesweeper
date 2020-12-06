@@ -183,7 +183,7 @@ public class MinesweeperView {
                 queue.add(new FlagMessage(r, c));
             else if (SwingUtilities.isMiddleMouseButton(e))
                 queue.add(new QuestionMessage(r, c));
-        }
+        } else  face.setIcon(s);
     }
 
     public void reset(){
