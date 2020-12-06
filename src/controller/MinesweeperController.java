@@ -8,6 +8,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
+/**
+ * controller class that performs actions based off what user inputs
+ */
+
 public class MinesweeperController implements Runnable {
     private BlockingQueue<Message> queue;
     private MinesweeperView view; // Direct reference to view
@@ -31,6 +35,9 @@ public class MinesweeperController implements Runnable {
     }
 
 
+    /**
+     * runs the game
+     */
     @Override
     public void run() {
         ValveResponse response = ValveResponse.EXECUTED;
@@ -61,6 +68,8 @@ public class MinesweeperController implements Runnable {
         }
     }
 
+
+    //javadocs not required for private fields
 
     private interface Valve {
         /**

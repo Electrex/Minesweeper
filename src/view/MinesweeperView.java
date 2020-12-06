@@ -1,5 +1,8 @@
 package view;
 
+/**
+ * this is the MinesweeperView class that contains information for what the user will see when they run the program
+ */
 
 import controller.*;
 import model.MinesweeperModel;
@@ -27,9 +30,23 @@ public class MinesweeperView {
     private final BlockingQueue<Message> queue;
     private int numberOfMoves;
 
+    /**
+     * initializing minesweeperview
+     * @param queue
+     * @param args
+     * @return MinesweeperView
+     */
+
     public static MinesweeperView init(BlockingQueue<Message> queue, int[] args) {
         return new MinesweeperView(queue, args[0], args[1]);
     }
+
+    /**
+     * setting icon heights and widths for view, as well as creating new JFrames and panels
+     * @param queue
+     * @param width
+     * @param height
+     */
 
     private MinesweeperView(BlockingQueue<Message> queue, int width, int height){
         this.queue = queue;
@@ -66,6 +83,12 @@ public class MinesweeperView {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
     }
+
+
+    /**
+     * this method updates and repaints the view using switch statements to check for different possible cases
+     * @param model
+     */
 
     public void repaintView(MinesweeperModel model){
         panel1.removeAll();
@@ -120,10 +143,25 @@ public class MinesweeperView {
         frame.pack();
     }
 
+
+    /**
+     * updating view based on user action
+     * @param e
+     */
+
+
     void hitButtonPressed(MouseEvent e){
         if (SwingUtilities.isLeftMouseButton(e))
             face.setIcon(new ImageIcon("src/minesweeper_images/images/face_ooh.gif"));
     }
+
+    /**
+     * updating view based on user click release
+     * @param e
+     * @param r
+     * @param c
+     * @param grid
+     */
 
     void hitButtonReleased(MouseEvent e, int r, int c, Tile[][] grid){
         if (grid[r][c].getState() != Tile.REVEALED){
@@ -157,6 +195,8 @@ public class MinesweeperView {
         frame.dispose();
     }
 
+
+
     public void gameOver() {
         for(JButton[] b : Minefield){
             for (JButton j: b){
@@ -165,6 +205,10 @@ public class MinesweeperView {
             }
         }
     }
+
+    /**
+     * changing the image at the top to a game winning image
+     */
 
     public void gameWon() {
         face.setIcon(new ImageIcon("src/minesweeper_images/images/face_win.gif"));

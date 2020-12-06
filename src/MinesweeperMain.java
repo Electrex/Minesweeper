@@ -6,6 +6,11 @@ import view.MinesweeperView;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
+/**
+ *
+ * this is the MinesweeperMain class that contains the main method
+ */
+
 public class MinesweeperMain {
     private static final BlockingQueue<Message> queue = new LinkedBlockingQueue<>();
     static int[] beginner = new int[]{9, 9, 10};

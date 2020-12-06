@@ -1,5 +1,10 @@
 package model;
 
+/**
+ * this is the Minesweeper Model Interface that contains the methods needed in order to initialize and work with the data in the model
+ * @param <T>
+ */
+
 public interface MSModel<T> {
     int getNumRows();
     int getNumCols();

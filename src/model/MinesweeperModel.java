@@ -2,6 +2,10 @@ package model;
 
 import java.util.Random;
 
+/**
+ * this is the Minesweeper Model class that contains the model data that then interacts with the view and controller
+ */
+
 public class MinesweeperModel implements MSModel<Tile>{
 
     private final int WIDTH;
@@ -24,6 +28,10 @@ public class MinesweeperModel implements MSModel<Tile>{
         numberOfMoves = 0;
         initializeBoard();
     }
+
+    /**
+     * initializing game board
+     */
 
     @Override
     public void initializeBoard() {
@@ -58,6 +66,12 @@ public class MinesweeperModel implements MSModel<Tile>{
         }
     }
 
+    /**
+     * initializing the data for the playing board
+     * @param r
+     * @param c
+     */
+
     @Override
     public void initializeBoard(int r, int c) {
 
@@ -90,6 +104,9 @@ public class MinesweeperModel implements MSModel<Tile>{
         }
     }
 
+    /**
+     *shows board data based off user's clicks and updates board
+     */
     @Override
     public void recursiveReveal(int row, int col){
         numberOfMoves++;
@@ -115,10 +132,17 @@ public class MinesweeperModel implements MSModel<Tile>{
         }
     }
 
+    /**
+     * ends game
+     */
     @Override
     public void endGame(){
         gameOver = true;
     }
+
+    /**
+     * shows all the mines -- only happens if player loses and game ends
+     */
 
     @Override
     public void revealAllMines() {
@@ -130,6 +154,13 @@ public class MinesweeperModel implements MSModel<Tile>{
             }
         }
     }
+
+    /**
+     * this method calculates data and counts how many neighboring mines there are
+     * @param row
+     * @param col
+     * @return count
+     */
 
     @Override
     public int getNumNeighboringMines(int row, int col) {
@@ -143,29 +174,61 @@ public class MinesweeperModel implements MSModel<Tile>{
         return count;
     }
 
+
+
     @Override
     public boolean isInBounds(int row, int col) {
         return row >= 0 && row < grid.length && col >= 0 && col < grid[0].length;
     }
+
+    /**
+     *getting the number of rows
+     * @return HEIGHT
+     */
 
     @Override
     public int getNumRows(){
         return HEIGHT;
     }
 
+    /**
+     * getting the number of columns
+     * @return WIDTH
+     */
+
     @Override
     public int getNumCols(){ return WIDTH; }
 
+    /**
+     * getting entire playing grid
+     * @return grid
+     */
+
     @Override
     public Tile[][] getGrid() { return grid; }
+
+    /**
+     * getting number of mines on playing board
+     * @return numMines
+     */
 
     public int getNumMines() {
         return numMines;
     }
 
+    /**
+     * checks to see if the game is over or not
+     * @return gameOver
+     */
+
     public boolean isGameOver() {
         return gameOver;
     }
+
+    /**
+     * getting how many mines are left
+     * @return numMinesLeft
+     */
 
     public int getNumMinesLeft() {
         return numMinesLeft;

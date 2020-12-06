@@ -1,5 +1,9 @@
 package model;
 
+/**
+ * this is the Tile class that contains different tile types, states, and other tile info
+ */
+
 public class Tile {
 
     //Possible tile states
@@ -22,6 +26,14 @@ public class Tile {
     
     private final int row;
     private final int col;
+
+    /**
+     * setting tile type, row, column, and the number of mines surrounding a certain tile that may get clicked
+     *
+     * @param type
+     * @param row
+     * @param col
+     */
     
     public Tile(int type, int row, int col) {
         this.type = type;
@@ -31,6 +43,14 @@ public class Tile {
         this.numMinesSurrounding = -1;
     }
 
+    /**
+     *
+     * @param type
+     * @param numMinesSurrounding
+     * @param row
+     * @param col
+     */
+
     public Tile(int type, int numMinesSurrounding, int row, int col) {
         this.type = type;
         this.numMinesSurrounding = numMinesSurrounding;
@@ -39,17 +59,38 @@ public class Tile {
         this.col = col;
     }
 
+
+
+
+    /**
+     * gets tile state
+     * @return state
+     */
     public int getState() {
         return state;
     }
+
+    /**
+     * gets tile type
+     * @return type
+     */
     
     public int getType() {
         return type;
     }
 
+    /**
+     * gets the number of surrounding mines of the selected tile
+     * @return numMinesSurrounding
+     */
+
     public int getNumSurroundingMines() {
         return numMinesSurrounding;
     }
+
+    /**
+     * setting state of tile
+     */
     
     public void setState(int state) {
         this.state = state;
