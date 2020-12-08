@@ -1,9 +1,5 @@
 package view;
 
-/**
- * Contains information for what the user will see when they run and interact with the program.
- */
-
 import controller.*;
 import model.MinesweeperModel;
 import model.Tile;
@@ -12,6 +8,10 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.concurrent.BlockingQueue;
+
+/**
+ * Contains information for what the user will see when they run and interact with the program.
+ */
 
 public class MinesweeperView {
     private final JButton[][] Minefield;
