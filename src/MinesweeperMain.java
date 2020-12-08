@@ -8,7 +8,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  *
- * this is the MinesweeperMain class that contains the main method
+ * Class that contains the main method
  */
 
 public class MinesweeperMain {

@@ -1,7 +1,7 @@
 package view;
 
 /**
- * this is the MinesweeperView class that contains information for what the user will see when they run the program
+ * Contains information for what the user will see when they run and interact with the program.
  */
 
 import controller.*;
@@ -19,7 +19,13 @@ public class MinesweeperView {
     private final int COLUMNS;
     ImageIcon f = new ImageIcon("src/minesweeper_images/images/bomb_flagged.gif");
     ImageIcon s = new ImageIcon("src/minesweeper_images/images/face_smile.gif");
+    /**
+     * icon's height
+     */
     int buttonHeight = f.getIconHeight();
+    /**
+     * icon's width
+     */
     int buttonWidth = f.getIconWidth();
     JFrame frame;
     JPanel panel1;
@@ -156,7 +162,7 @@ public class MinesweeperView {
     }
 
     /**
-     * updating view based on user click release
+     * updating view based on user click type
      * @param e
      * @param r
      * @param c
@@ -186,16 +192,24 @@ public class MinesweeperView {
         } else  face.setIcon(s);
     }
 
+    /**
+     * resets the number of moves
+     */
     public void reset(){
         numberOfMoves = 0;
         face.setIcon(s);
     }
 
+    /**
+     * disposes of JFrame frame
+     */
     public void dispose() {
         frame.dispose();
     }
 
-
+    /**
+     * updates view when game is over
+     */
 
     public void gameOver() {
         for(JButton[] b : Minefield){

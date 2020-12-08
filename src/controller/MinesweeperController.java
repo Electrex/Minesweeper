@@ -9,16 +9,34 @@ import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
 /**
- * controller class that performs actions based off what user inputs
+ * Controller implementing Runnable class that performs actions based off various user inputs/interactions with game.
  */
 
 public class MinesweeperController implements Runnable {
+    /**
+     * BlockingQueue of type Message
+     */
     private BlockingQueue<Message> queue;
+    /**
+     * used as direct reference to view
+     */
     private MinesweeperView view; // Direct reference to view
+    /**
+     * used as direct reference to model
+     */
     private MinesweeperModel model; // Direct reference to model
+    /**
+     * used as direct reference to game's state
+     */
     private GameInfo gameInfo; // Direct reference to the state of the Game/Application
     private List<Valve> valves = new LinkedList<Valve>();
 
+    /**
+     * contains setters for view, model, queue, and gameInfo, and adds valve calls to valve linkedlist
+     * @param view
+     * @param model
+     * @param queue
+     */
     public MinesweeperController(MinesweeperView view, MinesweeperModel model, BlockingQueue<Message> queue) {
         this.view = view;
         this.model = model;
@@ -72,9 +90,6 @@ public class MinesweeperController implements Runnable {
     //javadocs not required for private fields
 
     private interface Valve {
-        /**
-         * Performs certain action in response to message
-         */
         ValveResponse execute(Message message);
     }
 

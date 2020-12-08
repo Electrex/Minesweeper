@@ -1,13 +1,13 @@
 package controller;
 
 /**
- * this class is part of the controller and extends the BaseMessage class
+ * Part of the controller and extends the BaseMessage class to reveal messages to the user based off their input.
  */
 
 public class RevealMessage extends BaseMessage {
 
     /**
-     * this method simply calls from the superclass for row and column values
+     * RevealMessage constructor that calls super(row, col)
      * @param row
      * @param col
      */

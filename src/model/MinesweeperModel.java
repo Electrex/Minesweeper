@@ -3,13 +3,22 @@ package model;
 import java.util.Random;
 
 /**
- * this is the Minesweeper Model class that contains the model data that then interacts with the view and controller
+ * Contains the model data that then interacts with the view and controller
  */
 
 public class MinesweeperModel implements MSModel<Tile>{
 
+    /**
+     * game board width
+     */
     private final int WIDTH;
+    /**
+     * game board height
+     */
     private final int HEIGHT;
+    /**
+     * amount of mines in game board
+     */
     private final int numMines;
 
     private Tile[][] grid;
@@ -18,6 +27,10 @@ public class MinesweeperModel implements MSModel<Tile>{
     private boolean gameOver;
     private int numberOfMoves;
 
+    /**
+     * constructor that sets game board dimensions values and stores in integer array
+     * @param args
+     */
     public MinesweeperModel(int[] args) {
         this.WIDTH = args[0];
         this.HEIGHT = args[1];
@@ -105,7 +118,7 @@ public class MinesweeperModel implements MSModel<Tile>{
     }
 
     /**
-     *shows board data based off user's clicks and updates board
+     * shows board's data and recursively updates based off of user's actions
      */
     @Override
     public void recursiveReveal(int row, int col){
@@ -133,7 +146,7 @@ public class MinesweeperModel implements MSModel<Tile>{
     }
 
     /**
-     * ends game
+     * ends game and sets gameOver to true
      */
     @Override
     public void endGame(){
@@ -141,7 +154,7 @@ public class MinesweeperModel implements MSModel<Tile>{
     }
 
     /**
-     * shows all the mines -- only happens if player loses and game ends
+     * reveals all the mines on the game board -- only happens when game is over
      */
 
     @Override
@@ -175,6 +188,12 @@ public class MinesweeperModel implements MSModel<Tile>{
     }
 
 
+    /**
+     * checks to see if a specific point is inside game board
+     * @param row
+     * @param col
+     * @return row >= 0 && row < grid.length && col >= 0 && col < grid[0].length;
+     */
 
     @Override
     public boolean isInBounds(int row, int col) {

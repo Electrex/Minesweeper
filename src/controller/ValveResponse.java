@@ -1,7 +1,7 @@
 package controller;
 
 /**
- * different valve responses
+ * Different valve responses.
  */
 
 public enum ValveResponse {

@@ -1,7 +1,7 @@
 package model;
 
 /**
- * this is the Tile class that contains different tile types, states, and other tile info
+ * Contains different tile types, states, and other tile info
  */
 
 public class Tile {
@@ -44,7 +44,7 @@ public class Tile {
     }
 
     /**
-     *
+     * setter for tile elements
      * @param type
      * @param numMinesSurrounding
      * @param row
@@ -63,7 +63,7 @@ public class Tile {
 
 
     /**
-     * gets tile state
+     * getter for tile state
      * @return state
      */
     public int getState() {
@@ -71,7 +71,7 @@ public class Tile {
     }
 
     /**
-     * gets tile type
+     * getter for tile type
      * @return type
      */
     
@@ -80,7 +80,7 @@ public class Tile {
     }
 
     /**
-     * gets the number of surrounding mines of the selected tile
+     * getter for the number of surrounding mines of the selected tile
      * @return numMinesSurrounding
      */
 
@@ -89,7 +89,7 @@ public class Tile {
     }
 
     /**
-     * setting state of tile
+     * setter for tile state
      */
     
     public void setState(int state) {

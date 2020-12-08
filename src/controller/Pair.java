@@ -1,7 +1,7 @@
 package controller;
 
 /**
- * identifies and gets pair values
+ * Stores pair of generic objects. Works with two different types of objects.
  * @param <A>
  * @param <B>
  */
@@ -11,7 +11,7 @@ public class Pair<A, B> {
     private B second;
 
     /**
-     * calls super and sets pair values
+     * calls super and sets pair values. Part of composite design pattern.
      * @param first
      * @param second
      */
